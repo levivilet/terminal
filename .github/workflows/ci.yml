@@ -26,7 +26,7 @@ jobs:
           node-version-file: ".nvmrc"
       - name: Build static site
         if: matrix.os == 'ubuntu-22.04'
-        run: node build/bin/build.js
+        run: node scripts/build.js
       - name: Upload artifact
         if: matrix.os == 'ubuntu-22.04'
         uses: actions/upload-pages-artifact@v2
