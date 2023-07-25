@@ -56,11 +56,16 @@ export const createVertices = (text, textureAtlas) => {
     offsetX += charWidth;
   }
   if (Map) {
+    // prettier-ignore
     return new Float32Array([
       // first rectangle
-      -0.5, 1, 1, 0, -0.5, 0.5, 1, 1, -1, 0.5, 0, 1,
+      -0.5, 1, 1, 0,
+      -0.5, 0.5, 1,
+      1, -1, 0.5, 0, 1,
 
-      -1, 1, 0, 0, -1, 0.5, 0, 1, -0.5, 1, 1, 0,
+      -1, 1, 0, 0,
+      -1, 0.5, 0, 1,
+      -0.5, 1, 1, 0,
     ]);
   }
   return array;
