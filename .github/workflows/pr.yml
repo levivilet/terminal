@@ -1,0 +1,22 @@
+name: PR
+
+on:
+  pull-request:
+    branches:
+      - main
+
+jobs:
+  pr:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, macos-12, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+      - name: Build static site
+        run: node scripts/build.js
