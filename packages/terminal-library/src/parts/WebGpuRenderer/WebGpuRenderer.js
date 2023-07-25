@@ -88,19 +88,19 @@ export const create = async (canvas, textureAtlas) => {
   const texture = device.createTexture(textureDescriptor);
 
   device.queue.copyExternalImageToTexture(
-    { source: textureAtlas.tmpCanvas },
+    { source: textureAtlas.canvas },
     { texture },
     [textureAtlas.width, textureAtlas.height]
   );
 
-  // const bindGroupLayout = pipeline.getBindGroupLayout(0);
-  // const bindGroup = device.createBindGroup({
-  //   layout: bindGroupLayout,
-  //   entries: [
-  //     { binding: 0, resource: sampler },
-  //     { binding: 1, resource: texture.createView() },
-  //   ],
-  // });
+  const bindGroupLayout = pipeline.getBindGroupLayout(0);
+  const bindGroup = device.createBindGroup({
+    layout: bindGroupLayout,
+    entries: [
+      { binding: 0, resource: sampler },
+      { binding: 1, resource: texture.createView() },
+    ],
+  });
 
   return {
     device,
@@ -108,11 +108,13 @@ export const create = async (canvas, textureAtlas) => {
     vertexBuffer,
     pipeline,
     context,
+    bindGroup,
   };
 };
 
 export const render = (renderContext) => {
-  const { device, pipeline, vertexBuffer, vertices, context } = renderContext;
+  const { device, pipeline, vertexBuffer, vertices, context, bindGroup } =
+    renderContext;
   const encoder = device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
@@ -126,6 +128,7 @@ export const render = (renderContext) => {
   });
   // Draw the square.
   pass.setPipeline(pipeline);
+  pass.setBindGroup(0, bindGroup);
   pass.setVertexBuffer(0, vertexBuffer);
   pass.draw(vertices.length / 4);
   pass.end();

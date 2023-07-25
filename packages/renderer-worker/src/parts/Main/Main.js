@@ -7,5 +7,6 @@ export const main = async () => {
   const method = GetIpcType.getIpcType();
   await RendererProcess.listen(method);
   const offscreenCanvas = await OffscreenCanvas.create();
-  CreateTerminal.createTerminal(offscreenCanvas);
+  const atlasCanvas = await OffscreenCanvas.createAtlasCanvas();
+  CreateTerminal.createTerminal(offscreenCanvas, atlasCanvas);
 };

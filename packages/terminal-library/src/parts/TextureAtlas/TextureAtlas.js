@@ -1,21 +1,33 @@
 import * as CreateGlyph from "../CreateGlyph/CreateGlyph.js";
 import * as TemporaryCtx from "../TemporaryCtx/TemporaryCtx.js";
 
-export const create = () => {
+export const create = (canvas, width, height) => {
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error(`Failed to get ctx`);
+  }
+  // @ts-ignore
+  ctx.fillStyle = "green";
+  // @ts-ignore
+  ctx.fillRect(0, 0, width, height);
   const { tmpCtx, tmpCanvas } = TemporaryCtx.create();
   return {
     modified: true,
     cache: Object.create(null),
     tmpCtx,
     tmpCanvas,
+    canvas,
+    ctx,
     getGlyph(character) {
-      if (!(character in this.cache)) {
+      if (!this.cache[character]) {
         this.modified = true;
-        return CreateGlyph.createGlyph(this.tmpCtx, character);
+        this.cache[character] = CreateGlyph.createGlyph(this.tmpCtx, character);
       }
       return this.cache[character];
     },
-    width: 400,
-    height: 400,
+    width,
+    height,
   };
 };
