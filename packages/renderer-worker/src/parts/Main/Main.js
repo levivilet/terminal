@@ -11,13 +11,15 @@ export const main = async () => {
   const tmpCanvas = await OffscreenCanvas.createTmpCanvas()
   const text = 'abcd'
   const background = '#00008b'
-  const font = '30px sans-serif'
+  const fontSize = 80
+  const fontFamily = 'sans-serif'
   const fontColor = 'lightBlue'
   CreateTerminal.createTerminal(
     offscreenCanvas,
     atlasCanvas,
     tmpCanvas,
-    font,
+    fontFamily,
+    fontSize,
     fontColor,
     background,
     text,

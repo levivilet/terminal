@@ -11,7 +11,8 @@ const shaderModuleOptions = {
 export const create = async (
   canvas,
   textureAtlas,
-  font,
+  fontFamily,
+  fontSize,
   fontColor,
   background,
 ) => {
@@ -71,6 +72,7 @@ export const create = async (
       { binding: 1, resource: texture.createView() },
     ],
   })
+  const font = `${fontSize}px ${fontFamily}`
   return {
     device,
     vertices: new Float32Array(),
@@ -82,6 +84,7 @@ export const create = async (
     ...textureAtlas,
     background: HexToRgb.hexToRGB(background),
     font,
+    fontSize,
     fontColor,
   }
 }
