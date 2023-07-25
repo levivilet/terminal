@@ -6,6 +6,7 @@ export const create = (
   fontFamily,
   fontSize,
   fontColor,
+  letterSpacing,
   background,
 ) => {
   return WebGpuRenderer.create(
@@ -14,6 +15,7 @@ export const create = (
     fontFamily,
     fontSize,
     fontColor,
+    letterSpacing,
     background,
   )
 }

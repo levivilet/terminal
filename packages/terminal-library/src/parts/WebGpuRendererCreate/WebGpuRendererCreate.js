@@ -14,6 +14,7 @@ export const create = async (
   fontFamily,
   fontSize,
   fontColor,
+  letterSpacing,
   background,
 ) => {
   const device = await WebGpu.requestDevice()
@@ -89,5 +90,6 @@ export const create = async (
     font,
     fontSize,
     fontColor,
+    letterSpacing,
   }
 }

@@ -57,6 +57,7 @@ const createGlyph = (renderContext, character) => {
     font,
     fontSize,
     fontColor,
+    letterSpacing,
     background,
     atlasWidth,
   } = renderContext
@@ -67,6 +68,7 @@ const createGlyph = (renderContext, character) => {
     font,
     fontSize,
     fontColor,
+    letterSpacing,
     character,
   )
   if (renderContext.atlasOffsetX + width >= atlasWidth) {

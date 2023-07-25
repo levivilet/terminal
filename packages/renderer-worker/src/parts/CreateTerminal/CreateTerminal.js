@@ -7,6 +7,7 @@ export const createTerminal = (
   fontFamily,
   fontSize,
   fontColor,
+  letterSpacing,
   background,
   text,
 ) => {
@@ -17,6 +18,7 @@ export const createTerminal = (
     fontFamily,
     fontSize,
     fontColor,
+    letterSpacing,
     background,
     text,
   )
