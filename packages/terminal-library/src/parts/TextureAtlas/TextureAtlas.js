@@ -1,25 +1,25 @@
-import * as CreateGlyph from "../CreateGlyph/CreateGlyph.js";
-import * as TemporaryCtx from "../TemporaryCtx/TemporaryCtx.js";
+import * as CreateGlyph from '../CreateGlyph/CreateGlyph.js'
+import * as TemporaryCtx from '../TemporaryCtx/TemporaryCtx.js'
 
-const tmpCanvasWidth = 400;
-const tmpCanvasHeight = 400;
+const tmpCanvasWidth = 400
+const tmpCanvasHeight = 400
 
 export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
-  atlasCanvas.width = atlasWidth;
-  atlasCanvas.height = atlasHeight;
-  const atlasCtx = atlasCanvas.getContext("2d");
+  atlasCanvas.width = atlasWidth
+  atlasCanvas.height = atlasHeight
+  const atlasCtx = atlasCanvas.getContext('2d')
   if (!atlasCtx) {
-    throw new Error(`Failed to get ctx`);
+    throw new Error(`Failed to get ctx`)
   }
   // @ts-ignore
-  atlasCtx.fillStyle = "green";
+  atlasCtx.fillStyle = 'green'
   // @ts-ignore
-  atlasCtx.fillRect(0, 0, atlasWidth, atlasHeight);
+  atlasCtx.fillRect(0, 0, atlasWidth, atlasHeight)
 
   const { tmpCtx, tmpCanvas } = TemporaryCtx.create(
     tmpCanvasWidth,
-    tmpCanvasHeight
-  );
+    tmpCanvasHeight,
+  )
   return {
     atlasModified: true,
     atlasCache: Object.create(null),
@@ -33,8 +33,8 @@ export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
     atlasOffsetY: 0,
     tmpCanvasWidth,
     tmpCanvasHeight,
-  };
-};
+  }
+}
 
 const createGlyph = (context, character) => {
   const {
@@ -46,17 +46,17 @@ const createGlyph = (context, character) => {
     atlasOffsetY,
     tmpCanvasWidth,
     tmpCanvasHeight,
-  } = context;
-  tmpCtx.clearRect(0, 0, tmpCanvasWidth, tmpCanvasHeight);
-  const { width, height } = CreateGlyph.createGlyph(tmpCtx, character);
-  const dx = atlasOffsetX;
-  const dy = atlasOffsetY;
-  const dWidth = width;
-  const dHeight = height;
-  const sx = 0;
-  const sy = 0;
-  const sWidth = width;
-  const sHeight = height;
+  } = context
+  tmpCtx.clearRect(0, 0, tmpCanvasWidth, tmpCanvasHeight)
+  const { width, height } = CreateGlyph.createGlyph(tmpCtx, character)
+  const dx = atlasOffsetX
+  const dy = atlasOffsetY
+  const dWidth = width
+  const dHeight = height
+  const sx = 0
+  const sy = 0
+  const sWidth = width
+  const sHeight = height
   atlasCtx.drawImage(
     tmpCanvas,
     sx,
@@ -66,24 +66,24 @@ const createGlyph = (context, character) => {
     dx,
     dy,
     dWidth,
-    dHeight
-  );
-  context.atlasOffsetX += width;
+    dHeight,
+  )
+  context.atlasOffsetX += width
   const glyph = {
     atlasOffsetX: context.atlasOffsetX,
     atlasOffsetY: context.atlasOffsetY,
     character,
     width,
     height,
-  };
-  atlasCache[character] = glyph;
-  context.atlasModified = true;
-};
+  }
+  atlasCache[character] = glyph
+  context.atlasModified = true
+}
 
 export const getGlyph = (renderContext, character) => {
-  const { atlasCache } = renderContext;
+  const { atlasCache } = renderContext
   if (!atlasCache[character]) {
-    createGlyph(renderContext, character);
+    createGlyph(renderContext, character)
   }
-  return atlasCache[character];
-};
+  return atlasCache[character]
+}

@@ -1,2 +1,2 @@
-export const ModuleWorker = 1;
-export const MessagePort = 2;
+export const ModuleWorker = 1
+export const MessagePort = 2

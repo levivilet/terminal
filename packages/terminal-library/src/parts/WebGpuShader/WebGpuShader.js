@@ -21,4 +21,4 @@ fn vertexMain(@location(0) xy: vec2f, @location(1) uv: vec2f) -> VertexOut {
 fn fragmentMain(fragData: VertexOut) -> @location(0) vec4f {
   return textureSample(myTexture, mySampler, fragData.uv);
 }
-`;
+`

@@ -1,1 +1,1 @@
-export * from "./parts/CreateTerminal/CreateTerminal.js";
+export * from './parts/CreateTerminal/CreateTerminal.js'

@@ -1,8 +1,8 @@
 export const create = (width, height) => {
-  const tmpCanvas = new OffscreenCanvas(width, height);
-  const tmpCtx = tmpCanvas.getContext("2d");
+  const tmpCanvas = new OffscreenCanvas(width, height)
+  const tmpCtx = tmpCanvas.getContext('2d')
   if (!tmpCtx) {
-    throw new Error(`Failed to create canvas`);
+    throw new Error(`Failed to create canvas`)
   }
-  return { tmpCtx, tmpCanvas };
-};
+  return { tmpCtx, tmpCanvas }
+}
