@@ -17,7 +17,9 @@ export const create = async (
   background,
 ) => {
   const device = await WebGpu.requestDevice()
-  const context = canvas.getContext('webgpu')
+  const context = canvas.getContext('webgpu', {
+    alpha: false,
+  })
   // @ts-ignore
   const canvasFormat = navigator.gpu.getPreferredCanvasFormat()
   context.configure({
