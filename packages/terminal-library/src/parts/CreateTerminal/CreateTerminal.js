@@ -10,10 +10,4 @@ export const createTerminal = async (offscreenCanvas) => {
   textureAtlas.getGlyph("a");
   const context = await Renderer.create(offscreenCanvas, textureAtlas);
   Renderer.render(context);
-  // ctx.fillStyle = "blue";
-  // ctx.fillRect(0, 0, 50, 50);
-  // let x = 20;
-  // setInterval(() => {
-  //   ctx.fillRect(0, 0, x, 50);
-  // }, 100);
 };
