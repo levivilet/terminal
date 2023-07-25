@@ -1,6 +1,22 @@
 import * as WebGpu from "../WebGpu/WebGpu.js";
 import * as WebGpuShader from "../WebGpuShader/WebGpuShader.js";
 
+const vertexBufferLayout = {
+  arrayStride: 8,
+  attributes: [
+    {
+      format: "float32x2",
+      offset: 0,
+      shaderLocation: 0, // Position. Matches @location(0) in the @vertex shader.
+    },
+  ],
+};
+
+const shaderModuleOptions = {
+  label: "Cell shader",
+  code: WebGpuShader.code,
+};
+
 export const create = async (canvas, textureAtlas) => {
   const device = await WebGpu.requestDevice();
   const context = canvas.getContext("webgpu");
@@ -9,22 +25,9 @@ export const create = async (canvas, textureAtlas) => {
     device: device,
     format: canvasFormat,
   });
-  const vertexBufferLayout = {
-    arrayStride: 8,
-    attributes: [
-      {
-        format: "float32x2",
-        offset: 0,
-        shaderLocation: 0, // Position. Matches @location(0) in the @vertex shader.
-      },
-    ],
-  };
 
   // Create the shader that will render the cells.
-  const cellShaderModule = device.createShaderModule({
-    label: "Cell shader",
-    code: WebGpuShader.code,
-  });
+  const cellShaderModule = device.createShaderModule(shaderModuleOptions);
   const pipeline = device.createRenderPipeline({
     label: "Cell pipeline",
     layout: "auto",
