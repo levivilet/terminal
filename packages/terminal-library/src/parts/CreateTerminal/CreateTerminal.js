@@ -8,6 +8,7 @@ export const createTerminal = async (offscreenCanvas, atlasCanvas) => {
   }
   const textureAtlas = TextureAtlas.create(atlasCanvas, 400, 400);
   TextureAtlas.getGlyph(textureAtlas, "a");
-  const context = await Renderer.create(offscreenCanvas, textureAtlas);
-  Renderer.render(context);
+  const renderContext = await Renderer.create(offscreenCanvas, textureAtlas);
+  Renderer.updateBuffers(renderContext);
+  Renderer.render(renderContext);
 };
