@@ -1,7 +1,7 @@
 import * as TextureAtlas from "../TextureAtlas/TextureAtlas.js";
 
-export const createVertices = (text, textureAtlas) => {
-  const { atlasWidth, atlasHeight } = textureAtlas;
+export const createVertices = (text, renderContext) => {
+  const { atlasWidth, atlasHeight } = renderContext;
   const chars = text.split("");
   const charCount = chars.length;
   const itemsPerChar = 24;
@@ -11,7 +11,7 @@ export const createVertices = (text, textureAtlas) => {
   const scale = 2;
   for (let i = 0; i < total; i += itemsPerChar) {
     const char = chars[i / itemsPerChar];
-    const glyph = TextureAtlas.getGlyph(textureAtlas, char);
+    const glyph = TextureAtlas.getGlyph(renderContext, char);
     const { atlasOffsetX, atlasOffsetY, width, height } = glyph;
     const charWidth = (width / atlasWidth) * scale;
     const charHeight = (height / atlasHeight) * scale;
@@ -55,18 +55,18 @@ export const createVertices = (text, textureAtlas) => {
 
     offsetX += charWidth;
   }
-  if (Map) {
-    // prettier-ignore
-    return new Float32Array([
-      // first rectangle
-      -0.5, 1, 1, 0,
-      -0.5, 0.5, 1,
-      1, -1, 0.5, 0, 1,
+  // if (Map) {
+  //   // prettier-ignore
+  //   return new Float32Array([
+  //     // first rectangle
+  //     -0.5, 1, 1, 0,
+  //     -0.5, 0.5, 1,
+  //     1, -1, 0.5, 0, 1,
 
-      -1, 1, 0, 0,
-      -1, 0.5, 0, 1,
-      -0.5, 1, 1, 0,
-    ]);
-  }
+  //     -1, 1, 0, 0,
+  //     -1, 0.5, 0, 1,
+  //     -0.5, 1, 1, 0,
+  //   ]);
+  // }
   return array;
 };
