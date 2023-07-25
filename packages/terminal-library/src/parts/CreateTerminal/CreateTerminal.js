@@ -7,8 +7,8 @@ export const createTerminal = async (offscreenCanvas, atlasCanvas) => {
     throw new TypeError(`offscreenCanvas must be of type OffscreenCanvas`);
   }
   const textureAtlas = TextureAtlas.create(atlasCanvas, 400, 400);
-  TextureAtlas.getGlyph(textureAtlas, "a");
   const renderContext = await Renderer.create(offscreenCanvas, textureAtlas);
-  Renderer.updateBuffers(renderContext);
+  const text = "Hello World";
+  Renderer.updateBuffers(renderContext, text);
   Renderer.render(renderContext);
 };
