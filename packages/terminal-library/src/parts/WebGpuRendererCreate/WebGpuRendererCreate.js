@@ -7,18 +7,6 @@ const shaderModuleOptions = {
   code: WebGpuShader.code,
 };
 
-// prettier-ignore
-const vertices = new Float32Array([
-  // first rectangle
-  -0.5, 1,    1, 0,
-  -0.5, 0.5,  1, 1,
-  -1, 0.5,    0, 1,
-
-  -1, 1,     0, 0,
-  -1, 0.5,   0, 1,
-  -0.5, 1,   1, 0,
-]);
-
 export const create = async (canvas, textureAtlas) => {
   const device = await WebGpu.requestDevice();
   const context = canvas.getContext("webgpu");
@@ -28,15 +16,6 @@ export const create = async (canvas, textureAtlas) => {
     device: device,
     format: canvasFormat,
   });
-
-  const vertexBuffer = device.createBuffer({
-    label: "Text Vertices",
-    size: vertices.byteLength,
-    // @ts-ignore
-    usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
-  });
-
-  device.queue.writeBuffer(vertexBuffer, 0, vertices);
 
   // Create the shader that will render the cells.
   const cellShaderModule = device.createShaderModule(shaderModuleOptions);
@@ -88,8 +67,8 @@ export const create = async (canvas, textureAtlas) => {
 
   return {
     device,
-    vertices,
-    vertexBuffer,
+    vertices: new Float32Array(),
+    vertexBuffer: undefined,
     pipeline,
     context,
     bindGroup,
