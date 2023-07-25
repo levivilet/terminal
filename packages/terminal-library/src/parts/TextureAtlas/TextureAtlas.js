@@ -1,10 +1,9 @@
 import * as CreateGlyph from '../CreateGlyph/CreateGlyph.js'
-import * as TemporaryCtx from '../TemporaryCtx/TemporaryCtx.js'
 
 const tmpCanvasWidth = 400
 const tmpCanvasHeight = 400
 
-export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
+export const create = (atlasCanvas, tmpCanvas, atlasWidth, atlasHeight) => {
   atlasCanvas.width = atlasWidth
   atlasCanvas.height = atlasHeight
   const atlasCtx = atlasCanvas.getContext('2d')
@@ -16,10 +15,10 @@ export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
   // @ts-ignore
   atlasCtx.fillRect(0, 0, atlasWidth, atlasHeight)
 
-  const { tmpCtx, tmpCanvas } = TemporaryCtx.create(
-    tmpCanvasWidth,
-    tmpCanvasHeight,
-  )
+  const tmpCtx = tmpCanvas.getContext('2d')
+  if (!tmpCtx) {
+    throw new Error(`Failed to create canvas`)
+  }
   return {
     atlasModified: true,
     atlasCache: Object.create(null),

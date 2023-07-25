@@ -6,6 +6,8 @@ export const getFn = (method) => {
       return OffscreenCanvas.create
     case 'OffscreenCanvas.createAtlasCanvas':
       return OffscreenCanvas.createAtlasCanvas
+    case 'OffscreenCanvas.createTmpCanvas':
+      return OffscreenCanvas.createTmpCanvas
     default:
       throw new Error(`command not found`)
   }

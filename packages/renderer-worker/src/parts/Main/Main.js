@@ -8,6 +8,7 @@ export const main = async () => {
   await RendererProcess.listen(method)
   const offscreenCanvas = await OffscreenCanvas.create()
   const atlasCanvas = await OffscreenCanvas.createAtlasCanvas()
+  const tmpCanvas = await OffscreenCanvas.createTmpCanvas()
   const text = 'abcd'
-  CreateTerminal.createTerminal(offscreenCanvas, atlasCanvas, text)
+  CreateTerminal.createTerminal(offscreenCanvas, atlasCanvas, tmpCanvas, text)
 }

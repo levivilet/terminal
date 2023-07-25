@@ -7,3 +7,7 @@ export const create = () => {
 export const createAtlasCanvas = () => {
   return RendererProcess.invoke('OffscreenCanvas.createAtlasCanvas')
 }
+
+export const createTmpCanvas = () => {
+  return RendererProcess.invoke('OffscreenCanvas.createTmpCanvas')
+}
