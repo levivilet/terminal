@@ -72,7 +72,7 @@ export const create = async (canvas, textureAtlas) => {
     pipeline,
     context,
     bindGroup,
-    textureAtlas,
     texture,
+    ...textureAtlas,
   };
 };

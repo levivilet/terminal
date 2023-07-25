@@ -14,8 +14,8 @@ export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
   atlasCtx.fillRect(0, 0, atlasWidth, atlasHeight);
   const { tmpCtx, tmpCanvas } = TemporaryCtx.create();
   return {
-    modified: true,
-    cache: Object.create(null),
+    atlasModified: true,
+    atlasCache: Object.create(null),
     tmpCtx,
     tmpCanvas,
     atlasCanvas,
@@ -28,8 +28,14 @@ export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
 };
 
 const createGlyph = (context, character) => {
-  const { cache, tmpCtx, tmpCanvas, atlasCtx, atlasOffsetX, atlasOffsetY } =
-    context;
+  const {
+    atlasCache,
+    tmpCtx,
+    tmpCanvas,
+    atlasCtx,
+    atlasOffsetX,
+    atlasOffsetY,
+  } = context;
   tmpCtx.clearRect(0, 0, 400, 400);
   const { width, height } = CreateGlyph.createGlyph(tmpCtx, character);
   const dx = atlasOffsetX;
@@ -59,14 +65,14 @@ const createGlyph = (context, character) => {
     width,
     height,
   };
-  cache[character] = glyph;
-  context.modified = true;
+  atlasCache[character] = glyph;
+  context.atlasModified = true;
 };
 
-export const getGlyph = (context, character) => {
-  const { cache } = context;
-  if (!cache[character]) {
-    createGlyph(context, character);
+export const getGlyph = (renderContext, character) => {
+  const { atlasCache } = renderContext;
+  if (!atlasCache[character]) {
+    createGlyph(renderContext, character);
   }
-  return cache[character];
+  return atlasCache[character];
 };
