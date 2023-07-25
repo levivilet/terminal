@@ -8,7 +8,6 @@ export const render = (renderContext) => {
     bindGroup,
     background,
   } = renderContext
-  console.log({ background })
   const encoder = device.createCommandEncoder()
   const pass = encoder.beginRenderPass({
     colorAttachments: [
