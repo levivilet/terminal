@@ -1,7 +1,19 @@
 import * as WebGpuRenderer from '../WebGpuRenderer/WebGpuRenderer.js'
 
-export const create = (offscreenCanvas, textureAtlas, background) => {
-  return WebGpuRenderer.create(offscreenCanvas, textureAtlas, background)
+export const create = (
+  offscreenCanvas,
+  textureAtlas,
+  font,
+  fontColor,
+  background,
+) => {
+  return WebGpuRenderer.create(
+    offscreenCanvas,
+    textureAtlas,
+    font,
+    fontColor,
+    background,
+  )
 }
 
 export const render = (context) => {

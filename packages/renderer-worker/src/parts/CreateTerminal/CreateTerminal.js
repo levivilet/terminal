@@ -4,8 +4,18 @@ export const createTerminal = (
   canvas,
   atlasCanvas,
   tmpCanvas,
+  font,
+  fontColor,
   background,
   text,
 ) => {
-  Library.createTerminal(canvas, atlasCanvas, tmpCanvas, background, text)
+  Library.createTerminal(
+    canvas,
+    atlasCanvas,
+    tmpCanvas,
+    font,
+    fontColor,
+    background,
+    text,
+  )
 }

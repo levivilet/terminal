@@ -6,6 +6,8 @@ export const createTerminal = async (
   offscreenCanvas,
   atlasCanvas,
   tmpCanvas,
+  font,
+  fontColor,
   background,
   text,
 ) => {
@@ -16,6 +18,8 @@ export const createTerminal = async (
   const renderContext = await Renderer.create(
     offscreenCanvas,
     textureAtlas,
+    font,
+    fontColor,
     background,
   )
   Renderer.updateBuffers(renderContext, text)
