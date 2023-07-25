@@ -14,6 +14,7 @@ export const main = async () => {
   const fontSize = 48 // should not be larger than this to keep antialiasing
   const fontFamily = 'sans-serif'
   const fontColor = 'black'
+  const letterSpacing = 0.5
   const terminal = await CreateTerminal.createTerminal(
     offscreenCanvas,
     atlasCanvas,
@@ -21,6 +22,7 @@ export const main = async () => {
     fontFamily,
     fontSize,
     fontColor,
+    letterSpacing,
     background,
     text,
   )

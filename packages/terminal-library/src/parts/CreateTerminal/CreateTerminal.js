@@ -9,6 +9,7 @@ export const createTerminal = async (
   fontFamily,
   fontSize,
   fontColor,
+  letterSpacing,
   background,
   text,
 ) => {
@@ -28,6 +29,7 @@ export const createTerminal = async (
     fontFamily,
     fontSize,
     fontColor,
+    letterSpacing,
     background,
   )
   Renderer.updateBuffers(renderContext, text)
