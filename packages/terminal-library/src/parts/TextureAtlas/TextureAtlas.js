@@ -1,6 +1,9 @@
 import * as CreateGlyph from "../CreateGlyph/CreateGlyph.js";
 import * as TemporaryCtx from "../TemporaryCtx/TemporaryCtx.js";
 
+const tmpCanvasWidth = 400;
+const tmpCanvasHeight = 400;
+
 export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
   atlasCanvas.width = atlasWidth;
   atlasCanvas.height = atlasHeight;
@@ -12,7 +15,11 @@ export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
   atlasCtx.fillStyle = "green";
   // @ts-ignore
   atlasCtx.fillRect(0, 0, atlasWidth, atlasHeight);
-  const { tmpCtx, tmpCanvas } = TemporaryCtx.create();
+
+  const { tmpCtx, tmpCanvas } = TemporaryCtx.create(
+    tmpCanvasWidth,
+    tmpCanvasHeight
+  );
   return {
     atlasModified: true,
     atlasCache: Object.create(null),
@@ -24,6 +31,8 @@ export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
     atlasHeight,
     atlasOffsetX: 0,
     atlasOffsetY: 0,
+    tmpCanvasWidth,
+    tmpCanvasHeight,
   };
 };
 
@@ -35,8 +44,10 @@ const createGlyph = (context, character) => {
     atlasCtx,
     atlasOffsetX,
     atlasOffsetY,
+    tmpCanvasWidth,
+    tmpCanvasHeight,
   } = context;
-  tmpCtx.clearRect(0, 0, 400, 400);
+  tmpCtx.clearRect(0, 0, tmpCanvasWidth, tmpCanvasHeight);
   const { width, height } = CreateGlyph.createGlyph(tmpCtx, character);
   const dx = atlasOffsetX;
   const dy = atlasOffsetY;
@@ -57,7 +68,7 @@ const createGlyph = (context, character) => {
     dWidth,
     dHeight
   );
-  context.atlasOffsetX += width + 1;
+  context.atlasOffsetX += width;
   const glyph = {
     atlasOffsetX: context.atlasOffsetX,
     atlasOffsetY: context.atlasOffsetY,
