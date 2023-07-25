@@ -9,8 +9,8 @@ export const state = {
   ipc: undefined,
 };
 
-export const listen = async () => {
-  const ipc = await IpcChild.listen();
+export const listen = async (method) => {
+  const ipc = await IpcChild.listen(method);
   HandleIpc.handleIpc(ipc);
   state.ipc = ipc;
 };
