@@ -11,7 +11,7 @@ export const main = async () => {
   const tmpCanvas = await OffscreenCanvas.createTmpCanvas()
   const text = 'abcd'
   const background = '#fff'
-  const fontSize = 140
+  const fontSize = 48 // should not be larger than this to keep antialiasing
   const fontFamily = 'sans-serif'
   const fontColor = 'black'
   CreateTerminal.createTerminal(

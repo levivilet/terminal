@@ -55,18 +55,5 @@ export const createVertices = (text, renderContext) => {
 
     offsetX += charWidth
   }
-  if (Map) {
-    // prettier-ignore
-    return new Float32Array([
-      // first rectangle
-      1, 1, 1, 0,
-      1, -1, 1,
-      1, -1, -1, 0, 1,
-
-      -1, 1, 0, 0,
-      -1, -1, 0, 1,
-      1, 1, 1, 0,
-    ]);
-  }
   return array
 }
