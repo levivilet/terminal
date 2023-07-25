@@ -4,12 +4,15 @@
   "type": "module",
   "description": "Web based Terminal emulator using WebGPU",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "http-server ."
+  },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.4.4",
+    "http-server": "^14.1.1",
     "typescript": "^5.1.6"
   }
 }
