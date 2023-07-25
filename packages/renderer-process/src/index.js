@@ -1,5 +1,8 @@
 const getWorkerUrl = () => {
-  const workerUrl = new URL("./worker.js", import.meta.url).toString();
+  const workerUrl = new URL(
+    "../../renderer-worker/src/worker.js",
+    import.meta.url
+  ).toString();
   return workerUrl;
 };
 

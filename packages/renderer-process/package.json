@@ -1,0 +1,10 @@
+{
+  "name": "renderer-process",
+  "version": "0.0.0-dev",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

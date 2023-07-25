@@ -1,0 +1,10 @@
+{
+  "name": "renderer-worker",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/worker.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
