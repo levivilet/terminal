@@ -2,11 +2,12 @@ import * as CreateGlyph from "../CreateGlyph/CreateGlyph.js";
 import * as TemporaryCtx from "../TemporaryCtx/TemporaryCtx.js";
 
 export const create = () => {
-  const tmpCtx = TemporaryCtx.create();
+  const { tmpCtx, tmpCanvas } = TemporaryCtx.create();
   return {
     modified: true,
     cache: Object.create(null),
     tmpCtx,
+    tmpCanvas,
     getGlyph(character) {
       if (!(character in this.cache)) {
         this.modified = true;
