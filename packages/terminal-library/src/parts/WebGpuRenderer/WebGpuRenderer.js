@@ -1,38 +1,12 @@
+import * as CreateVertices from "../CreateVertices/CreateVertices.js";
 import * as WebGpu from "../WebGpu/WebGpu.js";
 import * as WebGpuShader from "../WebGpuShader/WebGpuShader.js";
+import * as VertexBufferLayout from "../VertexBufferLayout/VertexBufferLayout.js";
 
-const vertexBufferLayout = {
-  arrayStride: 16, // each point has 4 values with 4 bytes each
-  attributes: [
-    {
-      format: "float32x2",
-      offset: 0,
-      shaderLocation: 0, // Position. Matches @location(0) in the @vertex shader.
-    },
-    {
-      format: "float32x2",
-      offset: 8,
-      shaderLocation: 1,
-    },
-  ],
-};
 const shaderModuleOptions = {
   label: "Cell shader",
   code: WebGpuShader.code,
 };
-
-// prettier-ignore
-
-const vertices = new Float32Array([
-  // first rectangle
-  -0.5, 1,    1, 0,
-  -0.5, 0.5,  1, 1,
-  -1, 0.5,    0, 1,
-
-  -1, 1,     0, 0,
-  -1, 0.5,   0, 1,
-  -0.5, 1,   1, 0,
-]);
 
 export const create = async (canvas, textureAtlas) => {
   const device = await WebGpu.requestDevice();
@@ -43,14 +17,6 @@ export const create = async (canvas, textureAtlas) => {
     format: canvasFormat,
   });
 
-  const vertexBuffer = device.createBuffer({
-    label: "Text Vertices",
-    size: vertices.byteLength,
-    usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
-  });
-
-  device.queue.writeBuffer(vertexBuffer, 0, vertices);
-
   // Create the shader that will render the cells.
   const cellShaderModule = device.createShaderModule(shaderModuleOptions);
   const pipeline = device.createRenderPipeline({
@@ -59,7 +25,7 @@ export const create = async (canvas, textureAtlas) => {
     vertex: {
       module: cellShaderModule,
       entryPoint: "vertexMain",
-      buffers: [vertexBufferLayout],
+      buffers: [VertexBufferLayout.vertexBufferLayout],
     },
     fragment: {
       module: cellShaderModule,
@@ -73,22 +39,24 @@ export const create = async (canvas, textureAtlas) => {
   });
 
   const textureDescriptor = {
-    size: [textureAtlas.width, textureAtlas.height],
+    size: [textureAtlas.atlasWidth, textureAtlas.atlasHeight],
     format: "rgba8unorm",
     usage:
       GPUTextureUsage.TEXTURE_BINDING |
       GPUTextureUsage.COPY_DST |
       GPUTextureUsage.RENDER_ATTACHMENT,
   };
+
+  const texture = device.createTexture(textureDescriptor);
+
   const sampler = device.createSampler({
     minFilter: "linear",
     magFilter: "linear",
   });
 
-  const texture = device.createTexture(textureDescriptor);
-
   const bindGroupLayout = pipeline.getBindGroupLayout(0);
   const bindGroup = device.createBindGroup({
+    label: "Text bind group",
     layout: bindGroupLayout,
     entries: [
       { binding: 0, resource: sampler },
@@ -98,8 +66,8 @@ export const create = async (canvas, textureAtlas) => {
 
   return {
     device,
-    vertices,
-    vertexBuffer,
+    vertices: new Float32Array(),
+    vertexBuffer: undefined,
     pipeline,
     context,
     bindGroup,
@@ -108,25 +76,35 @@ export const create = async (canvas, textureAtlas) => {
   };
 };
 
-export const render = (renderContext) => {
-  const {
-    device,
-    pipeline,
-    vertexBuffer,
-    vertices,
-    context,
-    bindGroup,
-    textureAtlas,
-    texture,
-  } = renderContext;
+export const updateBuffers = (renderContext, text) => {
+  const { device, vertices, textureAtlas, texture } = renderContext;
+  const newVertices = CreateVertices.createVertices(text, textureAtlas);
+  if (newVertices.length !== vertices.length) {
+    console.log("set vertices");
+    if (renderContext.vertexBuffer) {
+      renderContext.vertexBuffer.destroy();
+    }
+    renderContext.vertexBuffer = device.createBuffer({
+      label: "Cell vertices",
+      size: newVertices.byteLength,
+      usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
+    });
+  }
+  renderContext.vertices = newVertices;
   if (textureAtlas.modified) {
+    console.log("update atlas");
     device.queue.copyExternalImageToTexture(
-      { source: textureAtlas.canvas },
+      { source: textureAtlas.atlasCanvas },
       { texture },
-      [textureAtlas.width, textureAtlas.height]
+      [textureAtlas.atlasWidth, textureAtlas.atlasHeight]
     );
     textureAtlas.modified = false;
   }
+};
+
+export const render = (renderContext) => {
+  const { device, pipeline, vertexBuffer, vertices, context, bindGroup } =
+    renderContext;
   const encoder = device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
@@ -138,6 +116,7 @@ export const render = (renderContext) => {
       },
     ],
   });
+  console.log({ bindGroup });
   // Draw the square.
   pass.setPipeline(pipeline);
   pass.setBindGroup(0, bindGroup);
