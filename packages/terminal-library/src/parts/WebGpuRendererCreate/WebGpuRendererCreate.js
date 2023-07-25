@@ -1,14 +1,20 @@
+import * as HexToRgb from '../HexToRgb/HexToRgb.js'
 import * as VertexBufferLayout from '../VertexBufferLayout/VertexBufferLayout.js'
 import * as WebGpu from '../WebGpu/WebGpu.js'
 import * as WebGpuShader from '../WebGpuShader/WebGpuShader.js'
-import * as HexToRgb from '../HexToRgb/HexToRgb.js'
 
 const shaderModuleOptions = {
   label: 'Cell shader',
   code: WebGpuShader.code,
 }
 
-export const create = async (canvas, textureAtlas, background) => {
+export const create = async (
+  canvas,
+  textureAtlas,
+  font,
+  fontColor,
+  background,
+) => {
   const device = await WebGpu.requestDevice()
   const context = canvas.getContext('webgpu')
   // @ts-ignore
@@ -75,5 +81,7 @@ export const create = async (canvas, textureAtlas, background) => {
     texture,
     ...textureAtlas,
     background: HexToRgb.hexToRGB(background),
+    font,
+    fontColor,
   }
 }

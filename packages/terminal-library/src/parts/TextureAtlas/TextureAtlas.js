@@ -10,11 +10,6 @@ export const create = (atlasCanvas, tmpCanvas, atlasWidth, atlasHeight) => {
   if (!atlasCtx) {
     throw new Error(`Failed to get ctx`)
   }
-  // @ts-ignore
-  atlasCtx.fillStyle = 'green'
-  // @ts-ignore
-  atlasCtx.fillRect(0, 0, atlasWidth, atlasHeight)
-
   const tmpCtx = tmpCanvas.getContext('2d')
   if (!tmpCtx) {
     throw new Error(`Failed to create canvas`)
@@ -45,10 +40,17 @@ const createGlyph = (context, character) => {
     atlasOffsetY,
     tmpCanvasWidth,
     tmpCanvasHeight,
+    font,
+    fontColor,
   } = context
   tmpCtx.clearRect(0, 0, tmpCanvasWidth, tmpCanvasHeight)
-  const { width, height } = CreateGlyph.createGlyph(tmpCtx, character)
-  const dx = atlasOffsetX + width
+  const { width, height } = CreateGlyph.createGlyph(
+    tmpCtx,
+    font,
+    fontColor,
+    character,
+  )
+  const dx = atlasOffsetX
   const dy = atlasOffsetY
   const dWidth = width
   const dHeight = height
@@ -67,7 +69,6 @@ const createGlyph = (context, character) => {
     dWidth,
     dHeight,
   )
-  context.atlasOffsetX += width
   const glyph = {
     atlasOffsetX: context.atlasOffsetX,
     atlasOffsetY: context.atlasOffsetY,
@@ -77,6 +78,7 @@ const createGlyph = (context, character) => {
   }
   atlasCache[character] = glyph
   context.atlasModified = true
+  context.atlasOffsetX += width
 }
 
 export const getGlyph = (renderContext, character) => {

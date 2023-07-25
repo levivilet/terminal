@@ -1,8 +1,14 @@
-const padding = 5
+import * as Assert from '../Assert/Assert.js'
 
-export const createGlyph = (tmpCtx, character) => {
-  tmpCtx.font = '30px serif'
-  tmpCtx.fillStyle = 'lightblue'
+const padding = 10
+
+export const createGlyph = (tmpCtx, font, fontColor, character) => {
+  Assert.object(tmpCtx)
+  Assert.string(font)
+  Assert.string(fontColor)
+  Assert.string(character)
+  tmpCtx.font = font
+  tmpCtx.fillStyle = fontColor
   tmpCtx.fillText(character, 0, 30)
   const metrics = tmpCtx.measureText(character)
   return {
