@@ -87,12 +87,6 @@ export const create = async (canvas, textureAtlas) => {
 
   const texture = device.createTexture(textureDescriptor);
 
-  device.queue.copyExternalImageToTexture(
-    { source: textureAtlas.canvas },
-    { texture },
-    [textureAtlas.width, textureAtlas.height]
-  );
-
   const bindGroupLayout = pipeline.getBindGroupLayout(0);
   const bindGroup = device.createBindGroup({
     layout: bindGroupLayout,
@@ -109,12 +103,30 @@ export const create = async (canvas, textureAtlas) => {
     pipeline,
     context,
     bindGroup,
+    textureAtlas,
+    texture,
   };
 };
 
 export const render = (renderContext) => {
-  const { device, pipeline, vertexBuffer, vertices, context, bindGroup } =
-    renderContext;
+  const {
+    device,
+    pipeline,
+    vertexBuffer,
+    vertices,
+    context,
+    bindGroup,
+    textureAtlas,
+    texture,
+  } = renderContext;
+  if (textureAtlas.modified) {
+    device.queue.copyExternalImageToTexture(
+      { source: textureAtlas.canvas },
+      { texture },
+      [textureAtlas.width, textureAtlas.height]
+    );
+    textureAtlas.modified = false;
+  }
   const encoder = device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
