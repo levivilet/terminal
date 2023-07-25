@@ -13,8 +13,8 @@ const updateVertexBuffer = (renderContext, text) => {
       // @ts-ignore
       usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
     })
-    device.queue.writeBuffer(renderContext.vertexBuffer, 0, newVertices)
   }
+  device.queue.writeBuffer(renderContext.vertexBuffer, 0, newVertices)
   renderContext.vertices = newVertices
 }
 

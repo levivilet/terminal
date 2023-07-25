@@ -10,7 +10,7 @@ export const createTerminal = (
   background,
   text,
 ) => {
-  Library.createTerminal(
+  return Library.createTerminal(
     canvas,
     atlasCanvas,
     tmpCanvas,
