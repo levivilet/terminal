@@ -1,3 +1,3 @@
 export const isTransferrable = (value) => {
-  return value instanceof OffscreenCanvas;
-};
+  return value instanceof OffscreenCanvas
+}

@@ -1,5 +1,5 @@
-import * as FirstWorkerEventType from "../FirstWorkerEventType/FirstWorkerEventType.js";
-import * as GetFirstEvent from "../GetFirstEvent/GetFirstEvent.js";
+import * as FirstWorkerEventType from '../FirstWorkerEventType/FirstWorkerEventType.js'
+import * as GetFirstEvent from '../GetFirstEvent/GetFirstEvent.js'
 
 /**
  *
@@ -10,5 +10,5 @@ export const getFirstWorkerEvent = (worker) => {
   return GetFirstEvent.getFirstEvent(worker, {
     message: FirstWorkerEventType.Message,
     error: FirstWorkerEventType.Error,
-  });
-};
+  })
+}

@@ -17,5 +17,9 @@
   },
   "dependencies": {
     "prettier": "^3.0.0"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
   }
 }

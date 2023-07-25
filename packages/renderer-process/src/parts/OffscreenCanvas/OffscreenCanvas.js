@@ -1,13 +1,13 @@
-const canvas = document.querySelector("canvas");
-const offscreenCanvas = canvas.transferControlToOffscreen();
+const canvas = document.querySelector('canvas')
+const offscreenCanvas = canvas.transferControlToOffscreen()
 
-const atlasCanvas = document.querySelector("#AtlasCanvas");
-const offscreenAtlasCanvas = atlasCanvas.transferControlToOffscreen();
+const atlasCanvas = document.querySelector('#AtlasCanvas')
+const offscreenAtlasCanvas = atlasCanvas.transferControlToOffscreen()
 
 export const create = () => {
-  return offscreenCanvas;
-};
+  return offscreenCanvas
+}
 
 export const createAtlasCanvas = () => {
-  return offscreenAtlasCanvas;
-};
+  return offscreenAtlasCanvas
+}
