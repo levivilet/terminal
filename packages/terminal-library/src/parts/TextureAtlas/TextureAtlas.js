@@ -20,6 +20,8 @@ export const create = (
   }
   const tmpCtx = tmpCanvas.getContext('2d', {
     alpha: false,
+    willReadFrequently: true,
+    desynchronized: true,
   })
   if (!tmpCtx) {
     throw new Error(`Failed to create canvas`)
@@ -59,7 +61,6 @@ const createGlyph = (renderContext, character) => {
     fontColor,
     background,
   } = renderContext
-  console.log({ background })
   tmpCtx.fillStyle = background
   tmpCtx.fillRect(0, 0, tmpCanvasWidth, tmpCanvasHeight)
   const { width, height } = CreateGlyph.createGlyph(
