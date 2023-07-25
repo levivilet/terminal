@@ -1,28 +1,13 @@
+import * as VertexBufferLayout from "../VertexBufferLayout/VertexBufferLayout.js";
 import * as WebGpu from "../WebGpu/WebGpu.js";
 import * as WebGpuShader from "../WebGpuShader/WebGpuShader.js";
 
-const vertexBufferLayout = {
-  arrayStride: 16, // each point has 4 values with 4 bytes each
-  attributes: [
-    {
-      format: "float32x2",
-      offset: 0,
-      shaderLocation: 0, // Position. Matches @location(0) in the @vertex shader.
-    },
-    {
-      format: "float32x2",
-      offset: 8,
-      shaderLocation: 1,
-    },
-  ],
-};
 const shaderModuleOptions = {
   label: "Cell shader",
   code: WebGpuShader.code,
 };
 
 // prettier-ignore
-
 const vertices = new Float32Array([
   // first rectangle
   -0.5, 1,    1, 0,
@@ -37,6 +22,7 @@ const vertices = new Float32Array([
 export const create = async (canvas, textureAtlas) => {
   const device = await WebGpu.requestDevice();
   const context = canvas.getContext("webgpu");
+  // @ts-ignore
   const canvasFormat = navigator.gpu.getPreferredCanvasFormat();
   context.configure({
     device: device,
@@ -46,6 +32,7 @@ export const create = async (canvas, textureAtlas) => {
   const vertexBuffer = device.createBuffer({
     label: "Text Vertices",
     size: vertices.byteLength,
+    // @ts-ignore
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
   });
 
@@ -59,7 +46,7 @@ export const create = async (canvas, textureAtlas) => {
     vertex: {
       module: cellShaderModule,
       entryPoint: "vertexMain",
-      buffers: [vertexBufferLayout],
+      buffers: [VertexBufferLayout.vertexBufferLayout],
     },
     fragment: {
       module: cellShaderModule,
@@ -76,8 +63,11 @@ export const create = async (canvas, textureAtlas) => {
     size: [textureAtlas.width, textureAtlas.height],
     format: "rgba8unorm",
     usage:
+      // @ts-ignore
       GPUTextureUsage.TEXTURE_BINDING |
+      // @ts-ignore
       GPUTextureUsage.COPY_DST |
+      // @ts-ignore
       GPUTextureUsage.RENDER_ATTACHMENT,
   };
   const sampler = device.createSampler({
