@@ -86,31 +86,31 @@ export const create = async (canvas, textureAtlas) => {
   // });
 
   return {
+    device,
     vertices,
     vertexBuffer,
     pipeline,
     context,
-    render() {
-      const encoder = device.createCommandEncoder();
-      const pass = encoder.beginRenderPass({
-        colorAttachments: [
-          {
-            view: context.getCurrentTexture().createView(),
-            loadOp: "clear",
-            clearValue: { r: 1, g: 0.5, b: 0.4, a: 1.0 },
-            storeOp: "store",
-          },
-        ],
-      });
-
-      // Draw the square.
-      pass.setPipeline(this.pipeline);
-      pass.setVertexBuffer(0, this.vertexBuffer);
-      pass.draw(this.vertices.length / 2);
-
-      pass.end();
-
-      device.queue.submit([encoder.finish()]);
-    },
   };
+};
+
+export const render = (renderContext) => {
+  const { device, pipeline, vertexBuffer, vertices, context } = renderContext;
+  const encoder = device.createCommandEncoder();
+  const pass = encoder.beginRenderPass({
+    colorAttachments: [
+      {
+        view: context.getCurrentTexture().createView(),
+        loadOp: "clear",
+        clearValue: { r: 1, g: 0.5, b: 0.4, a: 1.0 },
+        storeOp: "store",
+      },
+    ],
+  });
+  // Draw the square.
+  pass.setPipeline(pipeline);
+  pass.setVertexBuffer(0, vertexBuffer);
+  pass.draw(vertices.length / 2);
+  pass.end();
+  device.queue.submit([encoder.finish()]);
 };
