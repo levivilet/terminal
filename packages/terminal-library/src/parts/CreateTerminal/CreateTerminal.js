@@ -11,7 +11,6 @@ export const createTerminal = async (offscreenCanvas) => {
   // ctx.fillRect(0, 0, 50, 50);
   // let x = 20;
   // setInterval(() => {
-  //   console.log("render");
   //   ctx.fillRect(0, 0, x, 50);
   // }, 100);
 };

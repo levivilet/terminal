@@ -2,7 +2,7 @@ import { IpcError } from "../IpcError/IpcError.js";
 import * as IsMessagePort from "../IsMessagePort/IsMessagePort.js";
 
 export const create = async ({ url }) => {
-  const portPromise = await new Promise((resolve) => {
+  const portPromise = new Promise((resolve) => {
     globalThis.acceptPort = resolve;
   });
   await import(url);
