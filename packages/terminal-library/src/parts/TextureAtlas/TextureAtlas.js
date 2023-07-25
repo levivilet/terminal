@@ -30,7 +30,7 @@ export const create = (atlasCanvas, tmpCanvas, atlasWidth, atlasHeight) => {
   }
 }
 
-const createGlyph = (context, character) => {
+const createGlyph = (renderContext, character) => {
   const {
     atlasCache,
     tmpCtx,
@@ -41,12 +41,14 @@ const createGlyph = (context, character) => {
     tmpCanvasWidth,
     tmpCanvasHeight,
     font,
+    fontSize,
     fontColor,
-  } = context
+  } = renderContext
   tmpCtx.clearRect(0, 0, tmpCanvasWidth, tmpCanvasHeight)
   const { width, height } = CreateGlyph.createGlyph(
     tmpCtx,
     font,
+    fontSize,
     fontColor,
     character,
   )
@@ -70,15 +72,15 @@ const createGlyph = (context, character) => {
     dHeight,
   )
   const glyph = {
-    atlasOffsetX: context.atlasOffsetX,
-    atlasOffsetY: context.atlasOffsetY,
+    atlasOffsetX: renderContext.atlasOffsetX,
+    atlasOffsetY: renderContext.atlasOffsetY,
     character,
     width,
     height,
   }
   atlasCache[character] = glyph
-  context.atlasModified = true
-  context.atlasOffsetX += width
+  renderContext.atlasModified = true
+  renderContext.atlasOffsetX += width
 }
 
 export const getGlyph = (renderContext, character) => {

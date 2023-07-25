@@ -3,14 +3,16 @@ import * as WebGpuRenderer from '../WebGpuRenderer/WebGpuRenderer.js'
 export const create = (
   offscreenCanvas,
   textureAtlas,
-  font,
+  fontFamily,
+  fontSize,
   fontColor,
   background,
 ) => {
   return WebGpuRenderer.create(
     offscreenCanvas,
     textureAtlas,
-    font,
+    fontFamily,
+    fontSize,
     fontColor,
     background,
   )
