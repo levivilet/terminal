@@ -1,15 +1,6 @@
 export const render = (renderContext) => {
-  const {
-    device,
-    pipeline,
-    vertexBuffer,
-    vertices,
-    context,
-    bindGroup,
-    textureAtlas,
-    texture,
-  } = renderContext;
-
+  const { device, pipeline, vertexBuffer, vertices, context, bindGroup } =
+    renderContext;
   const encoder = device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
@@ -21,7 +12,6 @@ export const render = (renderContext) => {
       },
     ],
   });
-  // Draw the square.
   pass.setPipeline(pipeline);
   pass.setBindGroup(0, bindGroup);
   pass.setVertexBuffer(0, vertexBuffer);
