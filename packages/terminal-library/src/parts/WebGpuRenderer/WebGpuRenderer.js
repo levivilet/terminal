@@ -68,7 +68,8 @@ export const create = async (canvas) => {
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
   });
 
-  device.queue.writeBuffer(vertexBuffer, 0, vertices, 0, vertices.length);
+  console.log({ vertices });
+  device.queue.writeBuffer(vertexBuffer, 0, vertices);
   return {
     vertices,
     vertexBuffer,
