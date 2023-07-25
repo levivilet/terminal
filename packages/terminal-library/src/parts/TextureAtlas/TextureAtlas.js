@@ -14,5 +14,7 @@ export const create = () => {
       }
       return this.cache[character];
     },
+    width: 400,
+    height: 400,
   };
 };

@@ -8,7 +8,7 @@ export const createTerminal = async (offscreenCanvas) => {
   }
   const textureAtlas = TextureAtlas.create();
   textureAtlas.getGlyph("a");
-  const renderer = await Renderer.create(offscreenCanvas);
+  const renderer = await Renderer.create(offscreenCanvas, textureAtlas);
   renderer.render();
   // ctx.fillStyle = "blue";
   // ctx.fillRect(0, 0, 50, 50);

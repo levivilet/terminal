@@ -1,6 +1,7 @@
 import * as WebGpu from "../WebGpu/WebGpu.js";
+import * as WebGpuShader from "../WebGpuShader/WebGpuShader.js";
 
-export const create = async (canvas) => {
+export const create = async (canvas, textureAtlas) => {
   const device = await WebGpu.requestDevice();
   const context = canvas.getContext("webgpu");
   const canvasFormat = navigator.gpu.getPreferredCanvasFormat();
@@ -22,18 +23,7 @@ export const create = async (canvas) => {
   // Create the shader that will render the cells.
   const cellShaderModule = device.createShaderModule({
     label: "Cell shader",
-    code: `
-      @vertex
-      fn vertexMain(@location(0) position: vec2f)
-        -> @builtin(position) vec4f {
-        return vec4f(position, 0, 1);
-      }
-
-      @fragment
-      fn fragmentMain() -> @location(0) vec4f {
-        return vec4f(1, 0, 1, 1);
-      }
-    `,
+    code: WebGpuShader.code,
   });
   const pipeline = device.createRenderPipeline({
     label: "Cell pipeline",
@@ -53,6 +43,7 @@ export const create = async (canvas) => {
       ],
     },
   });
+
   const vertices = new Float32Array([
     //   X,    Y
     -1,
@@ -69,6 +60,31 @@ export const create = async (canvas) => {
   });
 
   device.queue.writeBuffer(vertexBuffer, 0, vertices);
+
+  const textureDescriptor = {
+    size: [textureAtlas.width, textureAtlas.height],
+    format: "rgba8unorm",
+    usage:
+      GPUTextureUsage.TEXTURE_BINDING |
+      GPUTextureUsage.COPY_DST |
+      GPUTextureUsage.RENDER_ATTACHMENT,
+  };
+  const sampler = device.createSampler({
+    minFilter: "linear",
+    magFilter: "linear",
+  });
+
+  const texture = device.createTexture(textureDescriptor);
+
+  // const bindGroupLayout = pipeline.getBindGroupLayout(0);
+  // const bindGroup = device.createBindGroup({
+  //   layout: bindGroupLayout,
+  //   entries: [
+  //     { binding: 0, resource: sampler },
+  //     { binding: 1, resource: texture.createView() },
+  //   ],
+  // });
+
   return {
     vertices,
     vertexBuffer,

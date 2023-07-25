@@ -9,7 +9,7 @@ export const create = async ({ url, name }) => {
   });
   const { type, event } = await GetFirstWorkerEvent.getFirstWorkerEvent(worker);
   if (type === FirstWorkerEventType.Error) {
-    throw new IpcError(`Failed to start worker: ${event}`);
+    throw new IpcError(`Failed to start worker: Received error event`);
   }
   if (type === FirstWorkerEventType.Message && event.data !== "ready") {
     throw new IpcError(`unexpected first message from worker`);
