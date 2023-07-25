@@ -12,9 +12,9 @@ export const create = (canvas, width, height) => {
   ctx.fillStyle = "green";
   // @ts-ignore
   ctx.fillRect(0, 0, width, height);
-  ctx.strokeStyle = "blue";
+  ctx.fillStyle = "blue";
   ctx.font = "48px serif";
-  ctx.strokeText("Hello world", 10, 50);
+  ctx.fillText("Hello world", 10, 50);
   const { tmpCtx, tmpCanvas } = TemporaryCtx.create();
   return {
     modified: true,

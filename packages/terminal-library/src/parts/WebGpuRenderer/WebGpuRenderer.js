@@ -25,13 +25,13 @@ const shaderModuleOptions = {
 
 const vertices = new Float32Array([
   // first rectangle
-  -0.5, 1,    1, 0.5,
+  -0.5, 1,    1, 0,
   -0.5, 0.5,  1, 1,
-  -1, 0.5,    0.5, 1,
+  -1, 0.5,    0, 1,
 
-  // -1, 1,     0.5, 0.5,
-  // -1, 0.5,   0.5, 1,
-  // -0.5, 1,   1, 0.5,
+  -1, 1,     0, 0,
+  -1, 0.5,   0, 1,
+  -0.5, 1,   1, 0,
 ]);
 
 export const create = async (canvas, textureAtlas) => {
