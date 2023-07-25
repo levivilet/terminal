@@ -9,14 +9,7 @@ export const render = (renderContext) => {
     textureAtlas,
     texture,
   } = renderContext;
-  if (textureAtlas.modified) {
-    device.queue.copyExternalImageToTexture(
-      { source: textureAtlas.atlasCanvas },
-      { texture },
-      [textureAtlas.atlasWidth, textureAtlas.atlasHeight]
-    );
-    textureAtlas.modified = false;
-  }
+
   const encoder = device.createCommandEncoder();
   const pass = encoder.beginRenderPass({
     colorAttachments: [
