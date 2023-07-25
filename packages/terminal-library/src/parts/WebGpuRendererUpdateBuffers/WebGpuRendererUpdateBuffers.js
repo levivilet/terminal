@@ -1,8 +1,8 @@
 import * as CreateVertices from "../CreateVertices/CreateVertices.js";
 
-export const updateBuffers = (renderContext, text) => {
-  const { device, vertices, textureAtlas, texture } = renderContext;
-  const newVertices = CreateVertices.createVertices(text, textureAtlas);
+const updateVertexBuffer = (renderContext, text) => {
+  const { device, vertices } = renderContext;
+  const newVertices = CreateVertices.createVertices(text, renderContext);
   if (newVertices.length !== vertices.length) {
     if (renderContext.vertexBuffer) {
       renderContext.vertexBuffer.destroy();
@@ -16,12 +16,23 @@ export const updateBuffers = (renderContext, text) => {
     device.queue.writeBuffer(renderContext.vertexBuffer, 0, newVertices);
   }
   renderContext.vertices = newVertices;
-  if (textureAtlas.modified) {
-    device.queue.copyExternalImageToTexture(
-      { source: textureAtlas.atlasCanvas },
-      { texture },
-      [textureAtlas.atlasWidth, textureAtlas.atlasHeight]
-    );
-    textureAtlas.modified = false;
+};
+
+const updateTexture = (renderContext) => {
+  const { device, texture, atlasCanvas, atlasWidth, atlasHeight } =
+    renderContext;
+  if (!renderContext.atlasModified) {
+    return;
   }
+  device.queue.copyExternalImageToTexture(
+    { source: atlasCanvas },
+    { texture },
+    [atlasWidth, atlasHeight]
+  );
+  renderContext.atlasModified = false;
+};
+
+export const updateBuffers = (renderContext, text) => {
+  updateVertexBuffer(renderContext, text);
+  updateTexture(renderContext);
 };
