@@ -14,7 +14,7 @@ export const main = async () => {
   const fontSize = 48 // should not be larger than this to keep antialiasing
   const fontFamily = 'sans-serif'
   const fontColor = 'black'
-  CreateTerminal.createTerminal(
+  const terminal = await CreateTerminal.createTerminal(
     offscreenCanvas,
     atlasCanvas,
     tmpCanvas,
@@ -24,4 +24,8 @@ export const main = async () => {
     background,
     text,
   )
+  let i = 0
+  setInterval(() => {
+    terminal.handleData(`${i++}`)
+  }, 300)
 }

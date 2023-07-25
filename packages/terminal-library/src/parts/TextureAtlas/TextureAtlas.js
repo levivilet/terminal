@@ -52,14 +52,13 @@ const createGlyph = (renderContext, character) => {
     tmpCtx,
     tmpCanvas,
     atlasCtx,
-    atlasOffsetX,
-    atlasOffsetY,
     tmpCanvasWidth,
     tmpCanvasHeight,
     font,
     fontSize,
     fontColor,
     background,
+    atlasWidth,
   } = renderContext
   tmpCtx.fillStyle = background
   tmpCtx.fillRect(0, 0, tmpCanvasWidth, tmpCanvasHeight)
@@ -70,14 +69,19 @@ const createGlyph = (renderContext, character) => {
     fontColor,
     character,
   )
-  const dx = atlasOffsetX
-  const dy = atlasOffsetY
+  if (renderContext.atlasOffsetX + width >= atlasWidth) {
+    renderContext.atlasOffsetX = 0
+    renderContext.atlasOffsetY += height
+  }
+  const dx = renderContext.atlasOffsetX
+  const dy = renderContext.atlasOffsetY
   const dWidth = width
   const dHeight = height
   const sx = 0
   const sy = 0
   const sWidth = width
   const sHeight = height
+
   atlasCtx.drawImage(
     tmpCanvas,
     sx,
@@ -89,6 +93,7 @@ const createGlyph = (renderContext, character) => {
     dWidth,
     dHeight,
   )
+
   const glyph = {
     atlasOffsetX: renderContext.atlasOffsetX,
     atlasOffsetY: renderContext.atlasOffsetY,
