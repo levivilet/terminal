@@ -1,8 +1,11 @@
+import * as Library from "../../terminal-library/src/index.js";
+
 const state = {
   canvas: undefined,
 };
 
 const addCanvas = (canvas) => {
+  Library.createTerminal(canvas);
   console.log({ canvas });
   state.canvas = canvas;
 };
@@ -28,6 +31,8 @@ const handleMessage = (event) => {
 
 const main = () => {
   onmessage = handleMessage;
+
+  // TODO request canvas from renderer process, then create terminal
 };
 
 main();
