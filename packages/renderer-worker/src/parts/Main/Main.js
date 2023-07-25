@@ -10,5 +10,12 @@ export const main = async () => {
   const atlasCanvas = await OffscreenCanvas.createAtlasCanvas()
   const tmpCanvas = await OffscreenCanvas.createTmpCanvas()
   const text = 'abcd'
-  CreateTerminal.createTerminal(offscreenCanvas, atlasCanvas, tmpCanvas, text)
+  const background = '#3a4a3b'
+  CreateTerminal.createTerminal(
+    offscreenCanvas,
+    atlasCanvas,
+    tmpCanvas,
+    background,
+    text,
+  )
 }

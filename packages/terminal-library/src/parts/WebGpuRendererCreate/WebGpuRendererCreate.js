@@ -1,13 +1,14 @@
 import * as VertexBufferLayout from '../VertexBufferLayout/VertexBufferLayout.js'
 import * as WebGpu from '../WebGpu/WebGpu.js'
 import * as WebGpuShader from '../WebGpuShader/WebGpuShader.js'
+import * as HexToRgb from '../HexToRgb/HexToRgb.js'
 
 const shaderModuleOptions = {
   label: 'Cell shader',
   code: WebGpuShader.code,
 }
 
-export const create = async (canvas, textureAtlas) => {
+export const create = async (canvas, textureAtlas, background) => {
   const device = await WebGpu.requestDevice()
   const context = canvas.getContext('webgpu')
   // @ts-ignore
@@ -64,7 +65,6 @@ export const create = async (canvas, textureAtlas) => {
       { binding: 1, resource: texture.createView() },
     ],
   })
-
   return {
     device,
     vertices: new Float32Array(),
@@ -74,5 +74,6 @@ export const create = async (canvas, textureAtlas) => {
     bindGroup,
     texture,
     ...textureAtlas,
+    background: HexToRgb.hexToRGB(background),
   }
 }

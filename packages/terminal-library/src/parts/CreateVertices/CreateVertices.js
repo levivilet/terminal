@@ -8,7 +8,7 @@ export const createVertices = (text, renderContext) => {
   const total = charCount * itemsPerChar
   const array = new Float32Array(total)
   let offsetX = 0
-  const scale = 2
+  const scale = 10
   for (let i = 0; i < total; i += itemsPerChar) {
     const char = chars[i / itemsPerChar]
     const glyph = TextureAtlas.getGlyph(renderContext, char)
