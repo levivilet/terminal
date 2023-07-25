@@ -1,13 +1,21 @@
 export const render = (renderContext) => {
-  const { device, pipeline, vertexBuffer, vertices, context, bindGroup } =
-    renderContext
+  const {
+    device,
+    pipeline,
+    vertexBuffer,
+    vertices,
+    context,
+    bindGroup,
+    background,
+  } = renderContext
+  console.log({ background })
   const encoder = device.createCommandEncoder()
   const pass = encoder.beginRenderPass({
     colorAttachments: [
       {
         view: context.getCurrentTexture().createView(),
         loadOp: 'clear',
-        clearValue: { r: 1, g: 0.5, b: 0.4, a: 1.0 },
+        clearValue: background,
         storeOp: 'store',
       },
     ],
