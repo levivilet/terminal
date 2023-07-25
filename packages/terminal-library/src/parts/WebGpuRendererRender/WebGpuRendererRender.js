@@ -11,9 +11,9 @@ export const render = (renderContext) => {
   } = renderContext;
   if (textureAtlas.modified) {
     device.queue.copyExternalImageToTexture(
-      { source: textureAtlas.canvas },
+      { source: textureAtlas.atlasCanvas },
       { texture },
-      [textureAtlas.width, textureAtlas.height]
+      [textureAtlas.atlasWidth, textureAtlas.atlasHeight]
     );
     textureAtlas.modified = false;
   }

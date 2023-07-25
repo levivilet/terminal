@@ -60,7 +60,7 @@ export const create = async (canvas, textureAtlas) => {
   });
 
   const textureDescriptor = {
-    size: [textureAtlas.width, textureAtlas.height],
+    size: [textureAtlas.atlasWidth, textureAtlas.atlasHeight],
     format: "rgba8unorm",
     usage:
       // @ts-ignore
