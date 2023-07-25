@@ -1,4 +1,6 @@
-export const updateBuffers = (renderContext) => {
+import * as CreateVertices from "../CreateVertices/CreateVertices.js";
+
+export const updateBuffers = (renderContext, text) => {
   const {
     device,
     pipeline,
@@ -9,6 +11,7 @@ export const updateBuffers = (renderContext) => {
     textureAtlas,
     texture,
   } = renderContext;
+  const newVertices = CreateVertices.createVertices(text, textureAtlas);
   if (textureAtlas.modified) {
     device.queue.copyExternalImageToTexture(
       { source: textureAtlas.atlasCanvas },

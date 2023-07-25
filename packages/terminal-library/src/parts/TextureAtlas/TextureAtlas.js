@@ -12,9 +12,6 @@ export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
   atlasCtx.fillStyle = "green";
   // @ts-ignore
   atlasCtx.fillRect(0, 0, atlasWidth, atlasHeight);
-  atlasCtx.fillStyle = "blue";
-  atlasCtx.font = "48px serif";
-  atlasCtx.fillText("Hello world", 10, 50);
   const { tmpCtx, tmpCanvas } = TemporaryCtx.create();
   return {
     modified: true,
@@ -25,6 +22,8 @@ export const create = (atlasCanvas, atlasWidth, atlasHeight) => {
     atlasCtx,
     atlasWidth,
     atlasHeight,
+    atlasOffsetX: 0,
+    atlasOffsetY: 0,
   };
 };
 
