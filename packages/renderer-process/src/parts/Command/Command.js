@@ -1,20 +1,7 @@
-const canvas = document.querySelector("canvas");
-const offscreenCanvas = canvas.transferControlToOffscreen();
-
-const createOffscreenCanvas = () => {
-  return offscreenCanvas;
-};
-
-const getFn = (method) => {
-  switch (method) {
-    case "OffscreenCanvas.create":
-      return createOffscreenCanvas;
-    default:
-      throw new Error(`command not found`);
-  }
-};
+import * as CommandMap from "../CommandMap/CommandMap.js";
 
 export const execute = (method, ...params) => {
-  const fn = getFn(method);
+  const fn = CommandMap.getFn(method);
+  // @ts-ignore
   return fn(...params);
 };
