@@ -5,16 +5,20 @@
   "description": "Web based Terminal emulator using WebGPU",
   "main": "index.js",
   "scripts": {
+    "postinstall": "lerna bootstrap --ci",
     "dev": "http-server ."
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@lerna/legacy-package-management": "^7.1.4",
     "@types/node": "^20.4.4",
     "http-server": "^14.1.1",
-    "typescript": "^5.1.6",
-    "prettier": "^3.0.0"
+    "jest": "^29.6.1",
+    "lerna": "^7.1.4",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
   },
   "prettier": {
     "semi": false,
