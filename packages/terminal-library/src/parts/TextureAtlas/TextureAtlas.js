@@ -3,17 +3,31 @@ import * as CreateGlyph from '../CreateGlyph/CreateGlyph.js'
 const tmpCanvasWidth = 400
 const tmpCanvasHeight = 400
 
-export const create = (atlasCanvas, tmpCanvas, atlasWidth, atlasHeight) => {
+export const create = (
+  atlasCanvas,
+  tmpCanvas,
+  atlasWidth,
+  atlasHeight,
+  background,
+) => {
   atlasCanvas.width = atlasWidth
   atlasCanvas.height = atlasHeight
-  const atlasCtx = atlasCanvas.getContext('2d')
+  const atlasCtx = atlasCanvas.getContext('2d', {
+    alpha: false,
+  })
   if (!atlasCtx) {
     throw new Error(`Failed to get ctx`)
   }
-  const tmpCtx = tmpCanvas.getContext('2d')
+  const tmpCtx = tmpCanvas.getContext('2d', {
+    alpha: false,
+  })
   if (!tmpCtx) {
     throw new Error(`Failed to create canvas`)
   }
+  atlasCtx.fillStyle = background
+  atlasCtx.fillRect(0, 0, atlasWidth, atlasHeight)
+  tmpCtx.fillStyle = background
+  tmpCtx.fillRect(0, 0, atlasWidth, atlasHeight)
   return {
     atlasModified: true,
     atlasCache: Object.create(null),
@@ -43,8 +57,11 @@ const createGlyph = (renderContext, character) => {
     font,
     fontSize,
     fontColor,
+    background,
   } = renderContext
-  tmpCtx.clearRect(0, 0, tmpCanvasWidth, tmpCanvasHeight)
+  console.log({ background })
+  tmpCtx.fillStyle = background
+  tmpCtx.fillRect(0, 0, tmpCanvasWidth, tmpCanvasHeight)
   const { width, height } = CreateGlyph.createGlyph(
     tmpCtx,
     font,

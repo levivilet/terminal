@@ -6,7 +6,7 @@ export const render = (renderContext) => {
     vertices,
     context,
     bindGroup,
-    background,
+    parsedBackground,
   } = renderContext
   const encoder = device.createCommandEncoder()
   const pass = encoder.beginRenderPass({
@@ -14,7 +14,7 @@ export const render = (renderContext) => {
       {
         view: context.getCurrentTexture().createView(),
         loadOp: 'clear',
-        clearValue: background,
+        clearValue: parsedBackground,
         storeOp: 'store',
       },
     ],
