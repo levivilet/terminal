@@ -49,7 +49,7 @@ const createGlyph = (context, character) => {
   } = context
   tmpCtx.clearRect(0, 0, tmpCanvasWidth, tmpCanvasHeight)
   const { width, height } = CreateGlyph.createGlyph(tmpCtx, character)
-  const dx = atlasOffsetX
+  const dx = atlasOffsetX + width
   const dy = atlasOffsetY
   const dWidth = width
   const dHeight = height
