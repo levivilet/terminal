@@ -17,11 +17,30 @@ export const main = async () => {
   HandleIpc.handleIpc(ipc)
   const handleBeforeInput = (event) => {
     event.preventDefault()
+    const { data } = event
     ipc.send({
       jsonrpc: '2.0',
       method: 'Terminal.handleInput',
-      params: [event.data],
+      params: [data],
     })
   }
+  const handleKeyDown = (event) => {
+    const { key, metaKey, altkey, ctrlKey, shiftKey } = event
+    const syntheticEvent = {
+      key,
+      metaKey,
+      altkey,
+      ctrlKey,
+      shiftKey,
+    }
+    ipc.send({
+      jsonrpc: '2.0',
+      method: 'Terminal.handleKeyDown',
+      params: [syntheticEvent],
+    })
+  }
+  // @ts-ignore
   textarea.onbeforeinput = handleBeforeInput
+  // @ts-ignore
+  textarea.onkeydown = handleKeyDown
 }

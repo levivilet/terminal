@@ -9,3 +9,8 @@ export const handleData = (id, data) => {
   const terminal = Terminals.get(id)
   terminal.handleData(data)
 }
+
+export const handleKeyDown = (event) => {
+  const terminal = Terminals.get(0)
+  terminal.handleKeyDown(event)
+}

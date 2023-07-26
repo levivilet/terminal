@@ -25,6 +25,11 @@ export const createTerminal = async () => {
     background,
     text,
   )
+  const handleOutput = (event) => {
+    const value = event.detail
+    SharedProcess.invoke('Terminal.handleInput', terminalId, value)
+  }
+  terminal.addEventListener('output', handleOutput)
   Terminals.set(terminalId, terminal)
   await SharedProcess.invoke('Terminal.create', terminalId)
   return terminal
