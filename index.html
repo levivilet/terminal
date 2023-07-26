@@ -8,9 +8,15 @@
       type="module"
       src="./packages/renderer-process/src/index.js"
     ></script>
+    <style>
+      body {
+        display: grid;
+        place-items: center;
+      }
+    </style>
   </head>
   <body>
-    <canvas id="Terminal" width="400" height="400"></canvas>
+    <canvas id="Terminal" width="700" height="400"></canvas>
     <canvas id="AtlasCanvas"></canvas>
     <canvas id="TmpCanvas"></canvas>
     <textarea name="" id="" cols="30" rows="10"></textarea>
