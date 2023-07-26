@@ -1,8 +1,10 @@
 import * as Callback from '../Callback/Callback.js'
+import * as Command from '../Command/Command.js'
+
 export const handleIpc = (ipc) => {
-  const handleMessage = (message) => {
+  const handleMessage = async (message) => {
     if ('method' in message) {
-      // TODO
+      await Command.execute(message.method, ...message.params)
       return
     }
     if ('id' in message) {

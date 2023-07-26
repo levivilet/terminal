@@ -35,9 +35,14 @@ export const createTerminal = async (
   Renderer.updateBuffers(renderContext, text)
   Renderer.render(renderContext)
   return {
-    handleData(text) {
+    text,
+    setData(text) {
       Renderer.updateBuffers(renderContext, text)
       Renderer.render(renderContext)
+      this.text = text
+    },
+    handleData(text) {
+      this.setData(this.text + text)
     },
   }
 }

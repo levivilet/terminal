@@ -27,7 +27,7 @@ export const main = async () => {
     text,
   )
   let i = 0
-  setInterval(() => {
-    terminal.handleData(`${i++}`)
-  }, 300)
+  // setInterval(() => {
+  //   terminal.handleData(`${i++}`)
+  // }, 300)
 }
