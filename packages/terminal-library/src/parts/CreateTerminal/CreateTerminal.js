@@ -1,6 +1,7 @@
 import * as IsOffscreenCanvas from '../IsOffscreenCanvas/IsOffscreenCanvas.js'
 import * as Renderer from '../Renderer/Renderer.js'
 import * as TextureAtlas from '../TextureAtlas/TextureAtlas.js'
+import * as TransformKey from '../TransformKey/TransformKey.js'
 
 export const createTerminal = async (
   offscreenCanvas,
@@ -19,7 +20,7 @@ export const createTerminal = async (
   const textureAtlas = TextureAtlas.create(
     atlasCanvas,
     tmpCanvas,
-    700,
+    800,
     400,
     background,
   )
@@ -34,6 +35,7 @@ export const createTerminal = async (
   )
   Renderer.updateBuffers(renderContext, text)
   Renderer.render(renderContext)
+  const target = new EventTarget()
   return {
     text,
     setData(text) {
@@ -43,6 +45,17 @@ export const createTerminal = async (
     },
     handleData(text) {
       this.setData(this.text + text)
+    },
+    handleKeyDown(event) {
+      const transformedKey = TransformKey.transformKey(event)
+      target.dispatchEvent(
+        new CustomEvent('output', {
+          detail: transformedKey,
+        }),
+      )
+    },
+    addEventListener(type, listener) {
+      target.addEventListener(type, listener)
     },
   }
 }
