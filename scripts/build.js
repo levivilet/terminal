@@ -8,5 +8,12 @@ const root = join(__dirname, '..')
 const dist = join(root, 'dist')
 await rm(dist, { recursive: true, force: true })
 await mkdir(dist, { recursive: true })
-await cp(join(root, 'packages'), join(dist, 'packages'), { recursive: true })
+for (const folder of [
+  'packages/renderer-process/src',
+  'packages/renderer-worker/src',
+  'packages/terminal-library/src',
+]) {
+  await mkdir(dirname(join(root, 'dist', folder)), { recursive: true })
+  await cp(join(root, folder), join(dist, folder), { recursive: true })
+}
 await cp(join(root, 'index.html'), join(dist, 'index.html'))
