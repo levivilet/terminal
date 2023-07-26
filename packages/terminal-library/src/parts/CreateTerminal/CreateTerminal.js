@@ -19,7 +19,7 @@ export const createTerminal = async (
   const textureAtlas = TextureAtlas.create(
     atlasCanvas,
     tmpCanvas,
-    400,
+    700,
     400,
     background,
   )
