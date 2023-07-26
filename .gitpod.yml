@@ -6,7 +6,7 @@ tasks:
     command: npm run dev
 
 ports:
-  - port: 8080
+  - port: 300
     onOpen: open-preview
   - port: 5900
     onOpen: ignore
