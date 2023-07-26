@@ -1,6 +1,6 @@
 import * as Assert from '../Assert/Assert.js'
 
-const padding = 10
+const padding = 1
 
 export const createGlyph = (
   tmpCtx,
