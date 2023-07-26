@@ -3,6 +3,8 @@ import * as GetWorkerUrl from '../GetWorkerUrl/GetWorkerUrl.js'
 import * as HandleIpc from '../HandleIpc/HandleIpc.js'
 import * as IpcParent from '../IpcParent/IpcParent.js'
 
+const textarea = document.querySelector('textarea')
+
 export const main = async () => {
   const workerUrl = GetWorkerUrl.getWorkerUrl()
   const method = GetIpcType.getIpcType()
@@ -13,4 +15,13 @@ export const main = async () => {
     type: 'module',
   })
   HandleIpc.handleIpc(ipc)
+  const handleBeforeInput = (event) => {
+    event.preventDefault()
+    ipc.send({
+      jsonrpc: '2.0',
+      method: 'Terminal.handleInput',
+      params: [event.data],
+    })
+  }
+  textarea.onbeforeinput = handleBeforeInput
 }

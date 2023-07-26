@@ -1,6 +1,7 @@
 import * as Library from '../../../../terminal-library/src/index.js'
+import * as Terminals from '../Terminals/Terminals.js'
 
-export const createTerminal = (
+export const createTerminal = async (
   canvas,
   atlasCanvas,
   tmpCanvas,
@@ -11,7 +12,7 @@ export const createTerminal = (
   background,
   text,
 ) => {
-  return Library.createTerminal(
+  const terminal = await Library.createTerminal(
     canvas,
     atlasCanvas,
     tmpCanvas,
@@ -22,4 +23,6 @@ export const createTerminal = (
     background,
     text,
   )
+  Terminals.set(0, terminal)
+  return terminal
 }
