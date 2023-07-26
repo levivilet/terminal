@@ -1,8 +1,9 @@
+import * as SplitString from '../SplitString/SplitString.js'
 import * as TextureAtlas from '../TextureAtlas/TextureAtlas.js'
 
 export const createVertices = (text, renderContext) => {
   const { atlasWidth, atlasHeight } = renderContext
-  const chars = text.split('')
+  const chars = SplitString.splitString(text)
   const charCount = chars.length
   const itemsPerChar = 24
   const total = charCount * itemsPerChar

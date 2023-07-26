@@ -12,7 +12,7 @@ export const main = async () => {
   const text = 'abcd'
   const background = '#fff'
   const fontSize = 48 // should not be larger than this to keep antialiasing
-  const fontFamily = 'sans-serif'
+  const fontFamily = '"Source Sans Pro",Arial,sans-serif'
   const fontColor = 'black'
   const letterSpacing = 0.5
   const terminal = await CreateTerminal.createTerminal(
