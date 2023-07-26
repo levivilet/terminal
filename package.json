@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "lerna bootstrap --ci",
-    "dev": "http-server ."
+    "dev": "node ./packages/server/src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,6 @@
   "devDependencies": {
     "@lerna/legacy-package-management": "^7.1.4",
     "@types/node": "^20.4.4",
-    "http-server": "^14.1.1",
     "jest": "^29.6.1",
     "lerna": "^7.1.4",
     "prettier": "^3.0.0",
