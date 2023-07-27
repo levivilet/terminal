@@ -1,3 +1,4 @@
+import * as GetParsedText from '../GetParsedText/GetParsedText.js'
 import * as IsOffscreenCanvas from '../IsOffscreenCanvas/IsOffscreenCanvas.js'
 import * as Renderer from '../Renderer/Renderer.js'
 import * as TextureAtlas from '../TextureAtlas/TextureAtlas.js'
@@ -44,7 +45,8 @@ export const createTerminal = async (
       this.text = text
     },
     handleData(text) {
-      this.setData(this.text + text)
+      const print = GetParsedText.getParsedText(text)
+      this.setData(this.text + print)
     },
     handleKeyDown(event) {
       const transformedKey = TransformKey.transformKey(event)
