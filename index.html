@@ -9,16 +9,38 @@
       src="./packages/renderer-process/src/index.js"
     ></script>
     <style>
-      body {
+      body{
         display: grid;
         place-items: center;
+      }
+      .Terminal {
+        display: grid;
+        place-items: center;
+        position:relative;
+        width: 800px;
+        height: 400px;
+        contain:strict
+      }
+      .TerminalTextArea{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width:0;
+        height:0;
+        resize: none;
+        border: none;
+        outline: none;
+        padding:0
       }
     </style>
   </head>
   <body>
-    <canvas id="Terminal" width="800" height="400"></canvas>
+    <div class="Terminal">
+
+      <canvas id="TerminalCanvas" width="800" height="400"></canvas>
+      <textarea class="TerminalTextArea" name="" id="" cols="30" rows="10"></textarea>
+    </div>
     <canvas id="AtlasCanvas"></canvas>
     <canvas id="TmpCanvas"></canvas>
-    <textarea name="" id="" cols="30" rows="10"></textarea>
   </body>
 </html>
