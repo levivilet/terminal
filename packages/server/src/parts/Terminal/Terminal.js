@@ -10,7 +10,10 @@ export const state = {
 
 export const create = (id, ipc) => {
   try {
-    const terminal = spawn(shell, [], {})
+    const terminal = spawn(shell, [], {
+      rows: 20,
+      cols: 40,
+    })
     terminal.onData((data) => {
       ipc.send({
         jsonrpc: '2.0',
