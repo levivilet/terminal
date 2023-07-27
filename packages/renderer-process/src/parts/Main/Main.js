@@ -3,7 +3,9 @@ import * as GetWorkerUrl from '../GetWorkerUrl/GetWorkerUrl.js'
 import * as HandleIpc from '../HandleIpc/HandleIpc.js'
 import * as IpcParent from '../IpcParent/IpcParent.js'
 
-const textarea = document.querySelector('textarea')
+const textarea = document.querySelector('.TerminalTextArea')
+const canvas = document.querySelector('#TerminalCanvas')
+
 
 export const main = async () => {
   const workerUrl = GetWorkerUrl.getWorkerUrl()
@@ -43,4 +45,9 @@ export const main = async () => {
   textarea.onbeforeinput = handleBeforeInput
   // @ts-ignore
   textarea.onkeydown = handleKeyDown
+
+  const handleCanvasClick = ()=>{
+    textarea.focus()
+  }
+  canvas?.addEventListener('click', handleCanvasClick)
 }

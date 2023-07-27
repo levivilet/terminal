@@ -1,4 +1,4 @@
-const canvas = document.querySelector('canvas')
+const canvas = document.querySelector('#TerminalCanvas')
 const offscreenCanvas = canvas.transferControlToOffscreen()
 
 const atlasCanvas = document.querySelector('#AtlasCanvas')
