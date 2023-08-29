@@ -5,7 +5,6 @@ import * as Terminals from '../Terminals/Terminals.js'
 
 export const createTerminal = async () => {
   const offscreenCanvas = await OffscreenCanvas.create()
-  const atlasCanvas = await OffscreenCanvas.createAtlasCanvas()
   const tmpCanvas = await OffscreenCanvas.createTmpCanvas()
   const text = 'abcd'
   const background = '#fff'
@@ -16,7 +15,6 @@ export const createTerminal = async () => {
   const terminalId = 0
   const terminal = await Library.createTerminal(
     offscreenCanvas,
-    atlasCanvas,
     tmpCanvas,
     fontFamily,
     fontSize,

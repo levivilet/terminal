@@ -6,7 +6,6 @@ import * as TransformKey from '../TransformKey/TransformKey.js'
 
 export const createTerminal = async (
   offscreenCanvas,
-  atlasCanvas,
   tmpCanvas,
   fontFamily,
   fontSize,
@@ -18,13 +17,7 @@ export const createTerminal = async (
   if (!IsOffscreenCanvas.isOffscreenCanvas(offscreenCanvas)) {
     throw new TypeError(`offscreenCanvas must be of type OffscreenCanvas`)
   }
-  const textureAtlas = TextureAtlas.create(
-    atlasCanvas,
-    tmpCanvas,
-    800,
-    400,
-    background,
-  )
+  const textureAtlas = TextureAtlas.create(tmpCanvas, 800, 400, background)
   const renderContext = await Renderer.create(
     offscreenCanvas,
     textureAtlas,

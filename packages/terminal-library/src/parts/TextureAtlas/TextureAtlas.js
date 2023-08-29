@@ -3,21 +3,7 @@ import * as CreateGlyph from '../CreateGlyph/CreateGlyph.js'
 const tmpCanvasWidth = 400
 const tmpCanvasHeight = 400
 
-export const create = (
-  atlasCanvas,
-  tmpCanvas,
-  atlasWidth,
-  atlasHeight,
-  background,
-) => {
-  atlasCanvas.width = atlasWidth
-  atlasCanvas.height = atlasHeight
-  const atlasCtx = atlasCanvas.getContext('2d', {
-    alpha: false,
-  })
-  if (!atlasCtx) {
-    throw new Error(`Failed to get ctx`)
-  }
+export const create = (tmpCanvas, atlasWidth, atlasHeight, background) => {
   const tmpCtx = tmpCanvas.getContext('2d', {
     alpha: false,
     willReadFrequently: true,
@@ -26,8 +12,6 @@ export const create = (
   if (!tmpCtx) {
     throw new Error(`Failed to create canvas`)
   }
-  atlasCtx.fillStyle = background
-  atlasCtx.fillRect(0, 0, atlasWidth, atlasHeight)
   tmpCtx.fillStyle = background
   tmpCtx.fillRect(0, 0, atlasWidth, atlasHeight)
   return {
@@ -35,8 +19,6 @@ export const create = (
     atlasCache: Object.create(null),
     tmpCtx,
     tmpCanvas,
-    atlasCanvas,
-    atlasCtx,
     atlasWidth,
     atlasHeight,
     atlasOffsetX: 0,
@@ -51,7 +33,6 @@ const createGlyph = (renderContext, character) => {
     atlasCache,
     tmpCtx,
     tmpCanvas,
-    atlasCtx,
     tmpCanvasWidth,
     tmpCanvasHeight,
     font,
@@ -60,6 +41,8 @@ const createGlyph = (renderContext, character) => {
     letterSpacing,
     background,
     atlasWidth,
+    device,
+    texture,
   } = renderContext
   tmpCtx.fillStyle = background
   tmpCtx.fillRect(0, 0, tmpCanvasWidth, tmpCanvasHeight)
@@ -84,17 +67,35 @@ const createGlyph = (renderContext, character) => {
   const sWidth = width
   const sHeight = height
 
-  atlasCtx.drawImage(
-    tmpCanvas,
-    sx,
-    sy,
-    sWidth,
-    sHeight,
-    dx,
-    dy,
-    dWidth,
-    dHeight,
+  device.queue.copyExternalImageToTexture(
+    {
+      source: tmpCanvas,
+      origin: {
+        x: 0,
+        y: 0,
+      },
+    },
+    {
+      texture,
+      origin: {
+        x: dx,
+        y: dy,
+      },
+    },
+    [width, height],
   )
+
+  // atlasCtx.drawImage(
+  //   tmpCanvas,
+  //   sx,
+  //   sy,
+  //   sWidth,
+  //   sHeight,
+  //   dx,
+  //   dy,
+  //   dWidth,
+  //   dHeight,
+  // )
 
   const glyph = {
     atlasOffsetX: renderContext.atlasOffsetX,
@@ -104,6 +105,7 @@ const createGlyph = (renderContext, character) => {
     height,
   }
   atlasCache[character] = glyph
+
   renderContext.atlasModified = true
   renderContext.atlasOffsetX += width
 }
