@@ -82,7 +82,7 @@ const createGlyph = (renderContext, character) => {
         y: dy,
       },
     },
-    [width, height],
+    [width + 1, height + 1],
   )
 
   // atlasCtx.drawImage(
