@@ -24,11 +24,6 @@ const updateTexture = (renderContext) => {
   if (!renderContext.atlasModified) {
     return
   }
-  device.queue.copyExternalImageToTexture(
-    { source: atlasCanvas },
-    { texture },
-    [atlasWidth, atlasHeight],
-  )
   renderContext.atlasModified = false
 }
 
