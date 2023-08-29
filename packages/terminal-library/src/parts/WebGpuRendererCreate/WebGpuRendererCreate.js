@@ -30,7 +30,8 @@ export const create = async (
 
   // Create the shader that will render the cells.
   const cellShaderModule = device.createShaderModule(shaderModuleOptions)
-  const pipeline = device.createRenderPipeline({
+  console.time('render')
+  const pipeline = await device.createRenderPipelineAsync({
     label: 'Cell pipeline',
     layout: 'auto',
     vertex: {
@@ -48,6 +49,7 @@ export const create = async (
       ],
     },
   })
+  console.timeEnd('render')
 
   const textureDescriptor = {
     size: [textureAtlas.atlasWidth, textureAtlas.atlasHeight],
