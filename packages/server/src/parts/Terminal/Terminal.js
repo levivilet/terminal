@@ -1,5 +1,5 @@
 import { spawn } from 'node-pty'
-import VError from 'verror'
+import { VError } from '@lvce-editor/verror'
 import * as os from 'os'
 
 const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
@@ -23,7 +23,6 @@ export const create = (id, ipc) => {
     })
     state.terminals[id] = terminal
   } catch (error) {
-    // @ts-ignore
     throw new VError(error, `Failed to launch terminal`)
   }
 }
