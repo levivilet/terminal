@@ -8,6 +8,7 @@
   "type": "module",
   "license": "MIT",
   "dependencies": {
+    "@lvce-editor/verror": "^1.1.1",
     "rollup": "^4.0.2"
   }
 }
