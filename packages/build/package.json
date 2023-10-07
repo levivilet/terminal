@@ -1,0 +1,13 @@
+{
+  "name": "build",
+  "version": "0.0.0-dev",
+  "description": "",
+  "main": "src/build.js",
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "rollup": "^4.0.2"
+  }
+}

@@ -33,6 +33,7 @@ cd packages/renderer-process                        && updateDependencies && cd 
 cd packages/renderer-worker                         && updateDependencies && cd ../.. &&
 cd packages/server                                  && updateDependencies && cd ../.. &&
 cd packages/terminal-library                        && updateDependencies && cd ../.. &&
+cd packages/build                                   && updateDependencies && cd ../.. &&
 
 echo "Great Success!"
 
