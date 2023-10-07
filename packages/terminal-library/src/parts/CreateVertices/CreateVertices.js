@@ -1,5 +1,6 @@
-import * as SplitString from '../SplitString/SplitString.js'
 import * as SplitLines from '../SplitLines/SplitLines.js'
+import * as SplitString from '../SplitString/SplitString.js'
+import * as Sum from '../Sum/Sum.js'
 import * as TextureAtlas from '../TextureAtlas/TextureAtlas.js'
 
 const itemsPerChar = 24
@@ -9,19 +10,11 @@ const getLength = (array) => {
   return array.length
 }
 
-const sum = (lengths) => {
-  let total = 0
-  for (const length of lengths) {
-    total += length
-  }
-  return total
-}
-
 export const createVertices = (text, renderContext) => {
   const { atlasWidth, atlasHeight } = renderContext
   const lines = SplitLines.splitlines(text)
   const rows = lines.map(SplitString.splitString)
-  const totalCharCount = sum(rows.map(getLength))
+  const totalCharCount =Sum. sum(rows.map(getLength))
 
   const total = totalCharCount * itemsPerChar
   const array = new Float32Array(total)
