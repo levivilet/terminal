@@ -1,12 +1,9 @@
-import { spawn } from 'node-pty'
 import { VError } from '@lvce-editor/verror'
+import { spawn } from 'node-pty'
 import * as os from 'os'
+import * as TerminalState from '../TerminalState/TeminalState.js'
 
 const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
-
-export const state = {
-  terminals: Object.create(null),
-}
 
 export const create = (id, ipc) => {
   try {
@@ -21,14 +18,14 @@ export const create = (id, ipc) => {
         params: [id, data],
       })
     })
-    state.terminals[id] = terminal
+    TerminalState.set(id, terminal)
   } catch (error) {
     throw new VError(error, `Failed to launch terminal`)
   }
 }
 
 export const handleInput = (id, data) => {
-  const terminal = state.terminals[id]
+  const terminal = TerminalState.get(id)
   if (!terminal) {
     throw new Error(`terminal not found ${id}`)
   }
