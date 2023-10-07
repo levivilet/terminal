@@ -26,6 +26,9 @@ export const create = (id, ipc) => {
 
 export const handleInput = (id, data) => {
   const terminal = TerminalState.get(id)
+  if (data === '\n') {
+    data = '\r\n'
+  }
   if (!terminal) {
     throw new Error(`terminal not found ${id}`)
   }
