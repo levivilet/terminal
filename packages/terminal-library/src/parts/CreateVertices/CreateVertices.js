@@ -1,7 +1,7 @@
+import * as GetAtlasGlyph from '../GetAtlasGlyph/GetAtlasGlyph.js'
 import * as SplitLines from '../SplitLines/SplitLines.js'
 import * as SplitString from '../SplitString/SplitString.js'
 import * as Sum from '../Sum/Sum.js'
-import * as TextureAtlas from '../TextureAtlas/TextureAtlas.js'
 
 const itemsPerChar = 24
 const scale = 2
@@ -14,7 +14,7 @@ export const createVertices = (text, renderContext) => {
   const { atlasWidth, atlasHeight } = renderContext
   const lines = SplitLines.splitlines(text)
   const rows = lines.map(SplitString.splitString)
-  const totalCharCount =Sum. sum(rows.map(getLength))
+  const totalCharCount = Sum.sum(rows.map(getLength))
 
   const total = totalCharCount * itemsPerChar
   const array = new Float32Array(total)
@@ -24,7 +24,7 @@ export const createVertices = (text, renderContext) => {
   for (const row of rows) {
     for (let j = 0; j < row.length * itemsPerChar; j += itemsPerChar) {
       const char = row[j / itemsPerChar]
-      const glyph = TextureAtlas.getGlyph(renderContext, char)
+      const glyph = GetAtlasGlyph.getAtlasGlyph(renderContext, char)
       const { atlasOffsetX, atlasOffsetY, width, height } = glyph
       const charWidth = (width / atlasWidth) * scale
       const charHeight = (height / atlasHeight) * scale
